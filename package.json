@@ -1,0 +1,39 @@
+{
+  "name": "gulp-doxx",
+  "version": "0.0.0",
+  "description": "Doxx documentation generator for gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filipovskii/gulp-doxx.git"
+  },
+  "keywords": [
+    "gulp",
+    "doxx",
+    "dox",
+    "documentation"
+  ],
+  "author": "filipovsky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filipovskii/gulp-doxx/issues"
+  },
+  "homepage": "https://github.com/filipovskii/gulp-doxx",
+  "devDependencies": {
+    "dox": "^0.5.1",
+    "gulp": "^3.8.8",
+    "mocha": "^1.21.4",
+    "proxyquire": "^1.0.1"
+  },
+  "dependencies": {
+    "debug": "^2.0.0",
+    "doxx": "^0.7.4",
+    "gulp-util": "^3.0.1",
+    "lodash": "^2.4.1",
+    "through2": "^0.6.1",
+    "vinyl": "^0.4.3"
+  }
+}
