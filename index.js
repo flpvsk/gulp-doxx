@@ -15,6 +15,30 @@ var through = require('through2'),
 
 PLUGIN_NAME = 'gulp-doxx';
 
+/**
+ * gulp-doxx plugin
+ *
+ * *Example*
+ *
+ *      var gulp = require('gulp'),
+ *          gulpDoxx = require('gulp-doxx');
+ *
+ *      gulp.task('docs', function() {
+ *
+ *        gulp.src('*.js')
+ *          .pipe(gulpDoxx({
+ *            title: 'My App Title'
+ *          }))
+ *          .pipe(gulp.dest('docs'));
+ *
+ *      });
+ *
+ * @param {Object} opts - options
+ * @param {String} [opts.title=No title] - application title
+ * @param {String} [opts.targetExtension=html] - result files extension
+ *
+ * @api public
+ */
 module.exports = function gulpDoxx(opts) {
   var opts = opts || {},
       allFiles = [],

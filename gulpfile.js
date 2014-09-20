@@ -9,3 +9,12 @@ gulp.task('simple-example', function() {
     }))
     .pipe(gulp.dest('examples/simple/docs'));
 });
+
+
+gulp.task('docs', function() {
+  return gulp.src('index.js')
+    .pipe(gulpDoxx({
+      title: 'gulp-doxx'
+    }))
+    .pipe(gulp.dest('docs'));
+});
