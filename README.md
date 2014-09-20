@@ -13,7 +13,7 @@
 
       gulp.task('docs', function() {
 
-        gulp.src('app/scripts/**/*.js')
+        gulp.src(['**/*.js', 'README.md'])
           .pipe(gulpDoxx({
             title: 'My App Title'
           }))

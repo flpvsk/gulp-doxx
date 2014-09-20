@@ -6,6 +6,7 @@ var through = require('through2'),
     doxxCompile = require('doxx/lib/compile'),
     doxxParse = require('doxx/lib/parser'),
     doxxSymbols = require('doxx/lib/symbols'),
+    marked = require('marked'),
     debug = require('debug')('gulp-doxx'),
     _ = require('lodash'),
     gutil = require('gulp-util'),
@@ -48,6 +49,7 @@ module.exports = function gulpDoxx(opts) {
 
   return through.obj(function transform(file, enc, cb) {
     var targetName = file.path + '.' + opts.targetExtension,
+        isReadme = /readme\.?[^\.]*$/i,
         symbols,
         dox;
 
@@ -57,7 +59,20 @@ module.exports = function gulpDoxx(opts) {
       return;
     }
 
-    debug('got file', file.name);
+    debug('got file', file.path);
+
+    if (isReadme.test(file.relative)) {
+      debug('got readme', file.relative);
+
+      allFiles.unshift({
+        name:"Main",
+        targetName: "index.html",
+        relName: "index.html",
+        readme: marked(file.contents.toString()),
+        dox:[],
+        symbols:[]
+      });
+    }
 
     dox = doxxParse(file.path);
     symbols = doxxSymbols(dox, targetName);
@@ -66,6 +81,7 @@ module.exports = function gulpDoxx(opts) {
       dox: dox,
       name: file.path,
       targetName: targetName,
+      relName: file.relative + '.' + opts.targetExtension,
       symbols: symbols
     });
 

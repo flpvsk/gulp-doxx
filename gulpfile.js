@@ -12,7 +12,7 @@ gulp.task('simple-example', function() {
 
 
 gulp.task('docs', function() {
-  return gulp.src('index.js')
+  return gulp.src(['index.js', 'README.md'])
     .pipe(gulpDoxx({
       title: 'gulp-doxx'
     }))

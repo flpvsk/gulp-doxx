@@ -71,136 +71,36 @@
       <div class="row">
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix-top">
-            <li><a href="index.html">Main</a></li>
-            <li class="active"><a href="index.js.html">/Volumes/hdd/projects/gulp-doxx/index.js</a></li>
+            <li class="active"><a href="index.html">Main</a></li>
+            <li><a href="index.js.html">/Volumes/hdd/projects/gulp-doxx/index.js</a></li>
             <li><a href="README.md.html">/Volumes/hdd/projects/gulp-doxx/README.md</a></li>
           </ul>
           <div class="scrollspy">
             <ul class="nav nav-list bs-docs-sidenav affix-top">
-              <li><a href="#exports"><i class="alert alert-info"></i><span>exports</span></a>
-              </li>
             </ul>
           </div>
         </div>
         <div class="span9">
-          <section id="exports">
-            <h1>exports</h1>
-            <h5 class="subheader"></h5>
-            <p>
-              <div class="label label-info radius ctx-type">method</div><span>module.exports()</span>
-            </p>
-          </section>
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th style="width:20%">Option name</th>
-                <th style="width:20%">Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>opts</td>
-                <td>Object</td>
-                <td>- options</td>
-              </tr>
-              <tr>
-                <td>[opts.title=No</td>
-                <td>String</td>
-                <td>title] - application title</td>
-              </tr>
-              <tr>
-                <td>[opts.targetExtension=html]</td>
-                <td>String</td>
-                <td>- result files extension </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="description"><p>gulp-doxx plugin</p><p><em>Example</em></p><pre><code> var gulp = require(&#39;gulp&#39;),
-     gulpDoxx = require(&#39;gulp-doxx&#39;);
+          <section id="Main"><h1 id="gulp-doxx">gulp-doxx</h1>
+<p><a href="https://github.com/FGRibreau/doxx">Doxx</a> documentation generator for <a href="http://gulpjs.com/">gulp</a>.</p>
+<h2 id="install">Install</h2>
+<pre><code>npm install gulp-doxx
+</code></pre><h2 id="configure">Configure</h2>
+<pre><code>  var gulp = require(&#39;gulp&#39;),
+      gulpDoxx = require(&#39;gulp-doxx&#39;);
 
- gulp.task(&#39;docs&#39;, function() {
+  gulp.task(&#39;docs&#39;, function() {
 
-   gulp.src(&#39;*.js&#39;)
-     .pipe(gulpDoxx({
-       title: &#39;My App Title&#39;
-     }))
-     .pipe(gulp.dest(&#39;docs&#39;));
+    gulp.src([&#39;**/*.js&#39;, &#39;README.md&#39;])
+      .pipe(gulpDoxx({
+        title: &#39;My App Title&#39;
+      }))
+      .pipe(gulp.dest(&#39;docs&#39;));
 
- });
-</code></pre> </div>
-          <pre><code class="language-javascript">module.exports = function gulpDoxx(opts) {
-  var opts = opts || {},
-      allFiles = [],
-      allSymbols = [];
-
-  opts.targetExtension = opts.targetExtension || 'html';
-
-  return through.obj(function transform(file, enc, cb) {
-    var targetName = file.path + '.' + opts.targetExtension,
-        isReadme = /readme\.?[^\.]*$/i,
-        symbols,
-        dox;
-
-    if (file.isNull()) {
-      debug('file is null');
-      cb();
-      return;
-    }
-
-    debug('got file', file.path);
-
-    if (isReadme.test(file.relative)) {
-      debug('got readme', file.relative);
-
-      allFiles.unshift({
-        name:&quot;Main&quot;,
-        targetName: &quot;index.html&quot;,
-        relName: &quot;index.html&quot;,
-        readme: marked(file.contents.toString()),
-        dox:[],
-        symbols:[]
-      });
-    }
-
-    dox = doxxParse(file.path);
-    symbols = doxxSymbols(dox, targetName);
-
-    allFiles.push({
-      dox: dox,
-      name: file.path,
-      targetName: targetName,
-      relName: file.relative + '.' + opts.targetExtension,
-      symbols: symbols
-    });
-
-    allSymbols = allSymbols.concat(symbols || []);
-
-    cb();
-  }, function flush(cb) {
-    var stream = this;
-
-    allFiles.forEach(function(doxxFile) {
-      var compiledContent, compileOpts;
-
-      compileOpts = _.extend(doxxFile, {
-        title: opts.title || 'Title not set',
-        allSymbols: allSymbols,
-        files: allFiles,
-        currentName: doxxFile.name
-      });
-
-      compiledContent = doxxCompile(compileOpts);
-
-      stream.push(new File({
-        path: doxxFile.targetName,
-        contents: new Buffer(compiledContent)
-      }));
-    });
-
-    cb();
-  })
-};</code></pre>
+  });
+</code></pre><h2 id="run">Run</h2>
+<pre><code>gulp docs
+</code></pre></section>
         </div>
       </div>
     </div>
