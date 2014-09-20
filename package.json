@@ -23,13 +23,13 @@
   },
   "homepage": "https://github.com/filipovskii/gulp-doxx",
   "devDependencies": {
-    "dox": "^0.5.1",
     "gulp": "^3.8.8",
     "mocha": "^1.21.4",
     "proxyquire": "^1.0.1"
   },
   "dependencies": {
     "debug": "^2.0.0",
+    "dox": "^0.5.1",
     "doxx": "^0.7.4",
     "gulp-util": "^3.0.1",
     "lodash": "^2.4.1",
