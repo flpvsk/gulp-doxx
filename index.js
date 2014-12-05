@@ -73,7 +73,11 @@ module.exports = function gulpDoxx(opts) {
         symbols:[]
       });
     }
-
+    if (opts.doxDestination){
+      var fileUrl = opts.doxDestination + targetName.replace(file.cwd, "");
+    }else{
+      var fileUrl = file.relative + '.' + opts.targetExtension;
+    }
     dox = doxxParse(file.path);
     symbols = doxxSymbols(dox, targetName);
 
@@ -81,7 +85,7 @@ module.exports = function gulpDoxx(opts) {
       dox: dox,
       name: file.relative,
       targetName: targetName,
-      relName: file.relative + '.' + opts.targetExtension,
+      relName: fileUrl,
       symbols: symbols
     });
 
