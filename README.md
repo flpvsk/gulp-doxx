@@ -15,7 +15,8 @@
 
         gulp.src(['**/*.js', 'README.md'])
           .pipe(gulpDoxx({
-            title: 'My App Title'
+            title: 'My App Title',
+            doxDestination: '/docs'
           }))
           .pipe(gulp.dest('docs'));
 
@@ -25,6 +26,20 @@
 ## Run
 
     gulp docs
+
+## Options
+
+### title
+Type: `String`
+
+The title of your project
+
+Default: `Title not set`
+
+### doxDestination
+Type: `String`
+
+Default: `null`
 
 [doxx]: https://github.com/FGRibreau/doxx
 [gulp]: http://gulpjs.com/
