@@ -79,7 +79,7 @@ module.exports = function gulpDoxx(opts) {
 
     allFiles.push({
       dox: dox,
-      name: file.path,
+      name: file.relative,
       targetName: targetName,
       relName: file.relative + '.' + opts.targetExtension,
       symbols: symbols
