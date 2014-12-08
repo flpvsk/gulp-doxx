@@ -64,17 +64,22 @@ module.exports = function gulpDoxx(opts) {
     if (isReadme.test(file.relative)) {
       debug('got readme', file.relative);
 
+      if (opts.doxDestination){
+        var indexUrl = opts.doxDestination + '/index.html';
+      }else{
+        var indexUrl = 'index.html';
+      }
       allFiles.unshift({
-        name:"Main",
-        targetName: "index.html",
-        relName: "index.html",
+        name:'Main',
+        targetName: 'index.html',
+        relName: indexUrl,
         readme: marked(file.contents.toString()),
         dox:[],
         symbols:[]
       });
     }
     if (opts.doxDestination){
-      var fileUrl = opts.doxDestination + targetName.replace(file.cwd, "");
+      var fileUrl = opts.doxDestination + targetName.replace(file.cwd, '');
     }else{
       var fileUrl = file.relative + '.' + opts.targetExtension;
     }
