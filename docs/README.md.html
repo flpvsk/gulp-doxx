@@ -71,9 +71,9 @@
       <div class="row">
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix-top">
-            <li><a href="index.html">Main</a></li>
-            <li><a href="index.js.html">/Volumes/hdd/projects/gulp-doxx/index.js</a></li>
-            <li class="active"><a href="README.md.html">/Volumes/hdd/projects/gulp-doxx/README.md</a></li>
+            <li><a href="docs/index.html">Main</a></li>
+            <li><a href="docs/index.js.html">index.js</a></li>
+            <li class="active"><a href="docs/README.md.html">README.md</a></li>
           </ul>
           <div class="scrollspy">
             <ul class="nav nav-list bs-docs-sidenav affix-top">
@@ -84,7 +84,8 @@
           <div class="description"> </div>
           <pre><code class="language-javascript">js', 'README.md'])
           .pipe(gulpDoxx({
-            title: 'My App Title'
+            title: 'My App Title',
+            doxDestination: '/docs'
           }))
           .pipe(gulp.dest('docs'));
 
@@ -94,6 +95,20 @@
 ## Run
 
     gulp docs
+
+## Options
+
+### title
+Type: `String`
+
+The title of your project
+
+Default: `Title not set`
+
+### doxDestination
+Type: `String`
+
+Default: `null`
 
 [doxx]: https://github.com/FGRibreau/doxx
 [gulp]: http://gulpjs.com/</code></pre>

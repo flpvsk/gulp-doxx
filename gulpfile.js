@@ -14,7 +14,8 @@ gulp.task('simple-example', function() {
 gulp.task('docs', function() {
   return gulp.src(['index.js', 'README.md'])
     .pipe(gulpDoxx({
-      title: 'gulp-doxx'
+      title: 'gulp-doxx',
+      doxDestination: 'docs'
     }))
     .pipe(gulp.dest('docs'));
 });

@@ -71,9 +71,9 @@
       <div class="row">
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix-top">
-            <li><a href="index.html">Main</a></li>
-            <li class="active"><a href="index.js.html">/Volumes/hdd/projects/gulp-doxx/index.js</a></li>
-            <li><a href="README.md.html">/Volumes/hdd/projects/gulp-doxx/README.md</a></li>
+            <li><a href="docs/index.html">Main</a></li>
+            <li class="active"><a href="docs/index.js.html">index.js</a></li>
+            <li><a href="docs/README.md.html">README.md</a></li>
           </ul>
           <div class="scrollspy">
             <ul class="nav nav-list bs-docs-sidenav affix-top">
@@ -153,24 +153,33 @@
     if (isReadme.test(file.relative)) {
       debug('got readme', file.relative);
 
+      if (opts.doxDestination){
+        var indexUrl = opts.doxDestination + '/index.html';
+      }else{
+        var indexUrl = 'index.html';
+      }
       allFiles.unshift({
-        name:&quot;Main&quot;,
-        targetName: &quot;index.html&quot;,
-        relName: &quot;index.html&quot;,
+        name:'Main',
+        targetName: 'index.html',
+        relName: indexUrl,
         readme: marked(file.contents.toString()),
         dox:[],
         symbols:[]
       });
     }
-
+    if (opts.doxDestination){
+      var fileUrl = opts.doxDestination + targetName.replace(file.cwd, '');
+    }else{
+      var fileUrl = file.relative + '.' + opts.targetExtension;
+    }
     dox = doxxParse(file.path);
     symbols = doxxSymbols(dox, targetName);
 
     allFiles.push({
       dox: dox,
-      name: file.path,
+      name: file.relative,
       targetName: targetName,
-      relName: file.relative + '.' + opts.targetExtension,
+      relName: fileUrl,
       symbols: symbols
     });
 
