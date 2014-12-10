@@ -22,6 +22,16 @@
       });
 
 
+## Options
+
+### template
+
+Type: `String`
+
+Default: `undefined`
+
+Path to jade template to be used to generate result.
+
 ## Run
 
     gulp docs
