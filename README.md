@@ -22,9 +22,22 @@
       });
 
 
+## Options
+
+### template
+
+Type: `String`
+
+Default: `undefined`
+
+Path to jade template to be used to generate result.
+
+If not set, default [doxx template][doxx-example] will be used.
+
 ## Run
 
     gulp docs
 
 [doxx]: https://github.com/FGRibreau/doxx
 [gulp]: http://gulpjs.com/
+[doxx-example]: http://fgribreau.github.io/doxx/docs/compile.js.html

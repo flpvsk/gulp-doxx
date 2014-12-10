@@ -2,12 +2,21 @@ var gulp = require('gulp'),
     gulpDoxx = require('./');
 
 
-gulp.task('simple-example', function() {
+gulp.task('example:simple', function() {
   return gulp.src('examples/simple/**/*.js')
     .pipe(gulpDoxx({
       title: 'Simple Example'
     }))
-    .pipe(gulp.dest('examples/simple/docs'));
+    .pipe(gulp.dest('docs'));
+});
+
+
+gulp.task('example:with-template', function() {
+  return gulp.src('examples/with-template/**/*.js')
+    .pipe(gulpDoxx({
+      template: 'examples/with-template/template.jade'
+    }))
+    .pipe(gulp.dest('docs'));
 });
 
 

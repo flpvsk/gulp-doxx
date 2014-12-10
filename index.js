@@ -10,6 +10,7 @@ var through = require('through2'),
     debug = require('debug')('gulp-doxx'),
     _ = require('lodash'),
     gutil = require('gulp-util'),
+    fs = require('fs'),
     PluginError = gutil.PluginError,
     PLUGIN_NAME;
 
@@ -46,6 +47,11 @@ module.exports = function gulpDoxx(opts) {
       allSymbols = [];
 
   opts.targetExtension = opts.targetExtension || 'html';
+
+  if (opts.template) {
+    doxxCompile.tpl = fs.readFileSync(opts.template).toString();
+    doxxCompile.tplFileName = opts.template;
+  }
 
   return through.obj(function transform(file, enc, cb) {
     var targetName = file.path + '.' + opts.targetExtension,
