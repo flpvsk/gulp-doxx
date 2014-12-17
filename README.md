@@ -16,7 +16,7 @@
         gulp.src(['**/*.js', 'README.md'])
           .pipe(gulpDoxx({
             title: 'My App Title',
-            doxDestination: '/docs'
+            urlPrefix: '/docs'
           }))
           .pipe(gulp.dest('docs'));
 
@@ -36,7 +36,7 @@ The title of your project
 
 Default: `Title not set`
 
-### doxDestination
+### urlPrefix
 Type: `String`
 
 Default: `null`

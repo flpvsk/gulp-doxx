@@ -64,8 +64,8 @@ module.exports = function gulpDoxx(opts) {
     if (isReadme.test(file.relative)) {
       debug('got readme', file.relative);
 
-      if (opts.doxDestination){
-        var indexUrl = opts.doxDestination + '/index.html';
+      if (opts.urlPrefix){
+        var indexUrl = opts.urlPrefix + '/index.html';
       }else{
         var indexUrl = 'index.html';
       }
@@ -78,8 +78,8 @@ module.exports = function gulpDoxx(opts) {
         symbols:[]
       });
     }
-    if (opts.doxDestination){
-      var fileUrl = opts.doxDestination + targetName.replace(file.cwd, '');
+    if (opts.urlPrefix){
+      var fileUrl = opts.urlPrefix + targetName.replace(file.cwd, '');
     }else{
       var fileUrl = file.relative + '.' + opts.targetExtension;
     }
