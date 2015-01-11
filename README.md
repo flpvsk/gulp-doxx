@@ -25,6 +25,41 @@
 
 ## Options
 
+### title
+Type: `String`
+
+The title of your project
+
+Default: `Title not set`
+
+### urlPrefix
+Type: `String`
+
+Default: `null`
+
+Prefix to be used for generating links in menu.
+
+#### Examples
+
+**Without** `urlPrefix` menu link could look like:
+
+```html
+<a href="script.js.html">script.js</a>
+```
+
+Same linke with `urlPrefix` set to `./docs`:
+
+```html
+<a href="./docs/script.js.html">script.js</a>
+```
+
+Same linke with `urlPrefix` set to `http://my-docs-server.io`:
+
+```html
+<a href="http://my-docs-server.io/docs/script.js.html">script.js</a>
+```
+
+
 ### template
 
 Type: `String`
@@ -38,20 +73,6 @@ If not set, default [doxx template][doxx-example] will be used.
 ## Run
 
     gulp docs
-
-## Options
-
-### title
-Type: `String`
-
-The title of your project
-
-Default: `Title not set`
-
-### urlPrefix
-Type: `String`
-
-Default: `null`
 
 [doxx]: https://github.com/FGRibreau/doxx
 [gulp]: http://gulpjs.com/
