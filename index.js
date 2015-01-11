@@ -70,24 +70,33 @@ module.exports = function gulpDoxx(opts) {
     if (isReadme.test(file.relative)) {
       debug('got readme', file.relative);
 
+      if (opts.urlPrefix){
+        var indexUrl = opts.urlPrefix + '/index.html';
+      }else{
+        var indexUrl = 'index.html';
+      }
       allFiles.unshift({
-        name:"Main",
-        targetName: "index.html",
-        relName: "index.html",
+        name:'Main',
+        targetName: 'index.html',
+        relName: indexUrl,
         readme: marked(file.contents.toString()),
         dox:[],
         symbols:[]
       });
     }
-
+    if (opts.urlPrefix){
+      var fileUrl = opts.urlPrefix + targetName.replace(file.cwd, '');
+    }else{
+      var fileUrl = file.relative + '.' + opts.targetExtension;
+    }
     dox = doxxParse(file.path);
     symbols = doxxSymbols(dox, targetName);
 
     allFiles.push({
       dox: dox,
-      name: file.path,
+      name: file.relative,
       targetName: targetName,
-      relName: file.relative + '.' + opts.targetExtension,
+      relName: fileUrl,
       symbols: symbols
     });
 

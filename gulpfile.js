@@ -20,6 +20,15 @@ gulp.task('example:with-template', function() {
 });
 
 
+gulp.task('example:with-url-prefix', function() {
+  return gulp.src('examples/with-url-prefix/**/*.js')
+    .pipe(gulpDoxx({
+      urlPrefix: 'docs'
+    }))
+    .pipe(gulp.dest('docs'));
+});
+
+
 gulp.task('docs', function() {
   return gulp.src(['index.js', 'README.md'])
     .pipe(gulpDoxx({
