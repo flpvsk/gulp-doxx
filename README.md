@@ -59,7 +59,7 @@ Same link with `urlPrefix` set to `./docs`:
 Same link with `urlPrefix` set to `http://my-docs-server.io`:
 
 ```html
-<a href="http://my-docs-server.io/docs/script.js.html">script.js</a>
+<a href="http://my-docs-server.io/script.js.html">script.js</a>
 ```
 
 
