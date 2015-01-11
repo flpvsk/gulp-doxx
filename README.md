@@ -8,19 +8,22 @@
 
 ## Configure
 
-      var gulp = require('gulp'),
-          gulpDoxx = require('gulp-doxx');
+```js
+var gulp = require('gulp'),
+    gulpDoxx = require('gulp-doxx');
 
-      gulp.task('docs', function() {
+gulp.task('docs', function() {
 
-        gulp.src(['**/*.js', 'README.md'])
-          .pipe(gulpDoxx({
-            title: 'My App Title',
-            urlPrefix: '/docs'
-          }))
-          .pipe(gulp.dest('docs'));
+  gulp.src(['**/*.js', 'README.md'])
+    .pipe(gulpDoxx({
+      title: 'My App Title',
+      urlPrefix: '/docs'
+    }))
+    .pipe(gulp.dest('docs'));
 
-      });
+});
+```
+
 
 
 ## Options
@@ -47,13 +50,13 @@ Prefix to be used for generating links in menu.
 <a href="script.js.html">script.js</a>
 ```
 
-Same linke with `urlPrefix` set to `./docs`:
+Same link with `urlPrefix` set to `./docs`:
 
 ```html
 <a href="./docs/script.js.html">script.js</a>
 ```
 
-Same linke with `urlPrefix` set to `http://my-docs-server.io`:
+Same link with `urlPrefix` set to `http://my-docs-server.io`:
 
 ```html
 <a href="http://my-docs-server.io/docs/script.js.html">script.js</a>
