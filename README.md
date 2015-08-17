@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 
 gulp.task('docs', function() {
 
-  gulp.src(['**/*.js', 'README.md'])
+  gulp.src(['**/*.js', 'README.md'], {base: '.'})
     .pipe(gulpDoxx({
       title: 'My App Title',
       urlPrefix: '/docs'
