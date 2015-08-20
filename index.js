@@ -27,7 +27,7 @@ PLUGIN_NAME = 'gulp-doxx';
  *
  *      gulp.task('docs', function() {
  *
- *        gulp.src('*.js')
+ *        gulp.src('*.js', { base: '.'})
  *          .pipe(gulpDoxx({
  *            title: 'My App Title'
  *          }))
@@ -36,7 +36,8 @@ PLUGIN_NAME = 'gulp-doxx';
  *      });
  *
  * @param {Object} opts - options
- * @param {String} [opts.title=No title] - application title
+ * @param {String} [opts.title] - application title
+ * @param {String} [opts.urlPrefix] - menu link prefix
  * @param {String} [opts.targetExtension=html] - result files extension
  *
  * @api public
@@ -72,34 +73,37 @@ module.exports = function gulpDoxx(opts) {
 
       if (opts.urlPrefix){
         var indexUrl = opts.urlPrefix + '/index.html';
-      }else{
+      } else {
         var indexUrl = 'index.html';
       }
+      
       allFiles.unshift({
-        name:'Main',
+        name: 'Main',
         targetName: 'index.html',
         relName: indexUrl,
         readme: marked(file.contents.toString()),
-        dox:[],
-        symbols:[]
+        dox: [],
+        symbols: []
+      });
+    } else {
+      if (opts.urlPrefix){
+        var fileUrl = opts.urlPrefix + targetName.replace(file.cwd, '');
+      } else {
+        var fileUrl = file.relative + '.' + opts.targetExtension;
+      }
+      
+      dox = doxxParse(file.path);
+      symbols = doxxSymbols(dox, targetName);
+      
+      allFiles.push({
+        dox: dox,
+        name: file.relative.replace(/\\/g, '/'),
+        targetName: targetName,
+        relName: fileUrl.replace(/\\/g, '/'),
+        symbols: symbols
       });
     }
-    if (opts.urlPrefix){
-      var fileUrl = opts.urlPrefix + targetName.replace(file.cwd, '');
-    }else{
-      var fileUrl = file.relative + '.' + opts.targetExtension;
-    }
-    dox = doxxParse(file.path);
-    symbols = doxxSymbols(dox, targetName);
-
-    allFiles.push({
-      dox: dox,
-      name: file.relative,
-      targetName: targetName,
-      relName: fileUrl,
-      symbols: symbols
-    });
-
+    
     allSymbols = allSymbols.concat(symbols || []);
 
     cb();

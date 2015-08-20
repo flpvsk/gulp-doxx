@@ -72,8 +72,7 @@
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix-top">
             <li class="active"><a href="index.html">Main</a></li>
-            <li><a href="index.js.html">/Volumes/hdd/projects/gulp-doxx/index.js</a></li>
-            <li><a href="README.md.html">/Volumes/hdd/projects/gulp-doxx/README.md</a></li>
+            <li><a href="index.js.html">index.js</a></li>
           </ul>
           <div class="scrollspy">
             <ul class="nav nav-list bs-docs-sidenav affix-top">
@@ -81,24 +80,36 @@
           </div>
         </div>
         <div class="span9">
-          <section id="Main"><h1 id="gulp-doxx">gulp-doxx</h1>
-<p><a href="https://github.com/FGRibreau/doxx">Doxx</a> documentation generator for <a href="http://gulpjs.com/">gulp</a>.</p>
-<h2 id="install">Install</h2>
+          <section id="Main"><h1>gulp-doxx</h1>
+<p><a href="https://github.com/FGRibreau/doxx">Doxx</a> documentation generator for <a href="http://gulpjs.com/">gulp</a>.</p><h2>Install</h2>
 <pre><code>npm install gulp-doxx
-</code></pre><h2 id="configure">Configure</h2>
-<pre><code>  var gulp = require(&#39;gulp&#39;),
-      gulpDoxx = require(&#39;gulp-doxx&#39;);
+</code></pre><h2>Configure</h2>
+<pre><code class="lang-js">var gulp = require(&#39;gulp&#39;),
+    gulpDoxx = require(&#39;gulp-doxx&#39;);
 
-  gulp.task(&#39;docs&#39;, function() {
+gulp.task(&#39;docs&#39;, function() {
 
-    gulp.src([&#39;**/*.js&#39;, &#39;README.md&#39;])
-      .pipe(gulpDoxx({
-        title: &#39;My App Title&#39;
-      }))
-      .pipe(gulp.dest(&#39;docs&#39;));
+  gulp.src([&#39;**/*.js&#39;, &#39;README.md&#39;], {base: &#39;.&#39;})
+    .pipe(gulpDoxx({
+      title: &#39;My App Title&#39;,
+      urlPrefix: &#39;/docs&#39;
+    }))
+    .pipe(gulp.dest(&#39;docs&#39;));
 
-  });
-</code></pre><h2 id="run">Run</h2>
+});
+</code></pre>
+<h2>Options</h2>
+<h3>title</h3>
+<p>Type: <code>String</code></p><p>The title of your project</p><p>Default: <code>Title not set</code></p><h3>urlPrefix</h3>
+<p>Type: <code>String</code></p><p>Default: <code>null</code></p><p>Prefix to be used for generating links in menu.</p><h4>Examples</h4>
+<p><strong>Without</strong> <code>urlPrefix</code> menu link could look like:</p><pre><code class="lang-html">&lt;a href=&quot;script.js.html&quot;&gt;script.js&lt;/a&gt;
+</code></pre>
+<p>Same link with <code>urlPrefix</code> set to <code>./docs</code>:</p><pre><code class="lang-html">&lt;a href=&quot;./docs/script.js.html&quot;&gt;script.js&lt;/a&gt;
+</code></pre>
+<p>Same link with <code>urlPrefix</code> set to <code>http://my-docs-server.io</code>:</p><pre><code class="lang-html">&lt;a href=&quot;http://my-docs-server.io/script.js.html&quot;&gt;script.js&lt;/a&gt;
+</code></pre>
+<h3>template</h3>
+<p>Type: <code>String</code></p><p>Default: <code>undefined</code></p><p>Path to jade template to be used to generate result.</p><p>If not set, default <a href="http://fgribreau.github.io/doxx/docs/compile.js.html">doxx template</a> will be used.</p><h2>Run</h2>
 <pre><code>gulp docs
 </code></pre></section>
         </div>
@@ -106,8 +117,8 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p>Documentation generated with<a href="https://github.com/FGRibreau/doxx">Doxx</a>created by<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
-        <p>Doxx is sponsored by<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a>and<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Documentation generated with <a href="https://github.com/FGRibreau/doxx">Doxx </a> created by <a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau </a></p>
+        <p>Doxx is sponsored by <a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr </a> and <a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
         <p>Theme borrowed from Twitter Bootstrap</p>
       </div>
     </footer>

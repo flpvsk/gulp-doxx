@@ -72,8 +72,7 @@
         <div class="span3 bs-docs-sidebar">
           <ul class="nav nav-list bs-docs-sidenav affix-top">
             <li><a href="index.html">Main</a></li>
-            <li class="active"><a href="index.js.html">/Volumes/hdd/projects/gulp-doxx/index.js</a></li>
-            <li><a href="README.md.html">/Volumes/hdd/projects/gulp-doxx/README.md</a></li>
+            <li class="active"><a href="index.js.html">index.js</a></li>
           </ul>
           <div class="scrollspy">
             <ul class="nav nav-list bs-docs-sidenav affix-top">
@@ -102,17 +101,34 @@
               <tr>
                 <td>opts</td>
                 <td>Object</td>
-                <td>- options</td>
+                <td><ul>
+<li>options</li>
+</ul>
+</td>
               </tr>
               <tr>
-                <td>[opts.title=No</td>
+                <td>[opts.title]</td>
                 <td>String</td>
-                <td>title] - application title</td>
+                <td><ul>
+<li>application title</li>
+</ul>
+</td>
+              </tr>
+              <tr>
+                <td>[opts.urlPrefix]</td>
+                <td>String</td>
+                <td><ul>
+<li>menu link prefix</li>
+</ul>
+</td>
               </tr>
               <tr>
                 <td>[opts.targetExtension=html]</td>
                 <td>String</td>
-                <td>- result files extension </td>
+                <td><ul>
+<li>result files extension</li>
+</ul>
+</td>
               </tr>
             </tbody>
           </table>
@@ -121,7 +137,7 @@
 
  gulp.task(&#39;docs&#39;, function() {
 
-   gulp.src(&#39;*.js&#39;)
+   gulp.src(&#39;*.js&#39;, { base: &#39;.&#39;})
      .pipe(gulpDoxx({
        title: &#39;My App Title&#39;
      }))
@@ -135,6 +151,11 @@
       allSymbols = [];
 
   opts.targetExtension = opts.targetExtension || 'html';
+
+  if (opts.template) {
+    doxxCompile.tpl = fs.readFileSync(opts.template).toString();
+    doxxCompile.tplFileName = opts.template;
+  }
 
   return through.obj(function transform(file, enc, cb) {
     var targetName = file.path + '.' + opts.targetExtension,
@@ -153,27 +174,39 @@
     if (isReadme.test(file.relative)) {
       debug('got readme', file.relative);
 
+      if (opts.urlPrefix){
+        var indexUrl = opts.urlPrefix + '/index.html';
+      } else {
+        var indexUrl = 'index.html';
+      }
+      
       allFiles.unshift({
-        name:&quot;Main&quot;,
-        targetName: &quot;index.html&quot;,
-        relName: &quot;index.html&quot;,
+        name: 'Main',
+        targetName: 'index.html',
+        relName: indexUrl,
         readme: marked(file.contents.toString()),
-        dox:[],
-        symbols:[]
+        dox: [],
+        symbols: []
+      });
+    } else {
+      if (opts.urlPrefix){
+        var fileUrl = opts.urlPrefix + targetName.replace(file.cwd, '');
+      } else {
+        var fileUrl = file.relative + '.' + opts.targetExtension;
+      }
+      
+      dox = doxxParse(file.path);
+      symbols = doxxSymbols(dox, targetName);
+      
+      allFiles.push({
+        dox: dox,
+        name: file.relative.replace(/\\/g, '/'),
+        targetName: targetName,
+        relName: fileUrl.replace(/\\/g, '/'),
+        symbols: symbols
       });
     }
-
-    dox = doxxParse(file.path);
-    symbols = doxxSymbols(dox, targetName);
-
-    allFiles.push({
-      dox: dox,
-      name: file.path,
-      targetName: targetName,
-      relName: file.relative + '.' + opts.targetExtension,
-      symbols: symbols
-    });
-
+    
     allSymbols = allSymbols.concat(symbols || []);
 
     cb();
@@ -206,8 +239,8 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p>Documentation generated with<a href="https://github.com/FGRibreau/doxx">Doxx</a>created by<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
-        <p>Doxx is sponsored by<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a>and<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Documentation generated with <a href="https://github.com/FGRibreau/doxx">Doxx </a> created by <a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau </a></p>
+        <p>Doxx is sponsored by <a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr </a> and <a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
         <p>Theme borrowed from Twitter Bootstrap</p>
       </div>
     </footer>
