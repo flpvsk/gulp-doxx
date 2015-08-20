@@ -1,6 +1,6 @@
 {
   "name": "gulp-doxx",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Doxx documentation generator for gulp",
   "main": "index.js",
   "scripts": {
